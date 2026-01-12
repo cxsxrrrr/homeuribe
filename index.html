@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokéMart TCG | Compra y Venta de Cartas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="#" class="logo">Poké<span>Mart</span> TCG</a>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Busca Charizard, Pikachu, Crown Zenith...">
+                <button class="search-btn">GO!</button>
+            </div>
+
+            <div class="user-actions">
+                <a href="#" style="color:white; font-weight:600;">Vender Cartas</a>
+                <div class="cart-icon">
+                   🛒
+                    <span class="cart-count">3</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="landing-hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Hazte con todas... <span>¡Las mejores cartas!</span></h1>
+                    <p>El mercado más seguro para comprar y vender tus cartas coleccionables de Pokémon TCG. Desde clásicos vintage hasta las últimas expansiones.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-primary">Explorar Cartas</button>
+                        <button class="btn btn-secondary">Empezar a Vender</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.wikidexcdn.net/mwuploads/wikidex/thumb/5/51/latest/20240111205939/Charizard_ex_%28Destinos_de_Paldea_234_TCG%29.png/600px-Charizard_ex_%28Destinos_de_Paldea_234_TCG%29.png" alt="Charizard Shiny Carta Destacada">
+                </div>
+            </div>
+        </section>
+
+        <section class="popular-section container">
+            <h2 class="section-title">🔥 Populares esta semana</h2>
+            <div class="carousel-container" id="popular-cards">
+                <p class="status-message">Cargando cartas...</p>
+            </div>
+        </section>
+
+        <section class="deals-section">
+            <div class="container">
+                <h2 class="section-title">⚡ Ofertas Relámpago</h2>
+                <div class="deals-grid" id="deal-cards">
+                    <p class="status-message">Cargando cartas...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="font-size: 1.4rem;">Poké<span>Mart</span> TCG</div>
+                    <p style="margin-top:1rem; color: #ccc; font-size: 0.9rem;">
+                        Tu tienda de confianza hecha por fans para fans. Compra, vende e intercambia tus cartas favoritas de forma segura.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#">Comprar Cartas</a></li>
+                        <li><a href="#">Vender mis Cartas</a></li>
+                        <li><a href="#">Guía de Estado</a></li>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Ayuda</h4>
+                    <ul>
+                        <li><a href="#">Centro de Soporte</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Suscríbete a ofertas</h4>
+                    <p style="color:#ccc; font-size:0.9rem; margin-bottom:1rem;">Recibe alertas de stock y descuentos exclusivos.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Tu email...">
+                        <button type="submit">⚡</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2026 PokéMart TCG. Este es un proyecto de diseño, no está afiliado con Nintendo, Game Freak o The Pokémon Company.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

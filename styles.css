@@ -1,0 +1,526 @@
+      /* Variables de Color inspiradas en Pokémon */
+        :root {
+            --poke-red: #EE1515;
+            --poke-yellow: #FFCC00;
+            --poke-blue: #3B4CCA; /* Azul clásico del logo */
+            --poke-dark-blue: #1D2C5E;
+            --bg-light: #F4F4F8;
+            --text-dark: #333333;
+            --card-border: #E0E0E0;
+        }
+
+        /* Reset y Estilos Globales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--poke-dark-blue);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary { background-color: var(--poke-yellow); color: var(--poke-dark-blue); }
+        .btn-secondary { background-color: var(--poke-blue); color: white; }
+
+        /* --- HEADER --- */
+        .main-header {
+            background-color: var(--poke-red);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(238, 21, 21, 0.3);
+            border-bottom: 5px solid var(--poke-dark-blue);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span { color: var(--poke-yellow); }
+        
+        /* Círculo decorativo tipo Pokéball en el logo */
+        .logo::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(to bottom, white 50%, var(--poke-dark-blue) 50%);
+            border-radius: 50%;
+            border: 3px solid var(--poke-dark-blue);
+            margin-right: 10px;
+            position: relative;
+        }
+
+
+
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 2rem;
+            position: relative;
+            max-width: 500px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 2px solid var(--poke-dark-blue);
+            outline: none;
+            font-family: inherit;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: var(--poke-yellow);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--poke-dark-blue);
+            font-weight: bold;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .cart-icon {
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--poke-yellow);
+            color: var(--poke-dark-blue);
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* --- LANDING HERO --- */
+        .landing-hero {
+            /* Fondo con patrón sutil de pokeballs */
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 20%, transparent 20%),
+                linear-gradient(135deg, var(--poke-blue) 0%, var(--poke-dark-blue) 100%);
+            background-size: 50px 50px, 100% 100%;
+            color: white;
+            padding: 4rem 0;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text h1 span {
+            color: var(--poke-yellow);
+            -webkit-text-stroke: 1px var(--poke-dark-blue);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Decoración de fondo para la imagen principal */
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background-color: rgba(255, 204, 0, 0.2); /* Amarillo transparente */
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            transform: rotate(-10deg);
+            z-index: 1;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        }
+
+        /* --- COMMON CARD STYLES --- */
+        .card-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            border: 2px solid var(--card-border);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card-item:hover {
+            border-color: var(--poke-yellow);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .card-img-container {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .card-img-container img {
+            max-width: 100%;
+            height: auto;
+            /* Efecto foil sutil */
+            filter: brightness(1.05);
+        }
+
+        .card-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+        
+        .card-set {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .rarity-icon {
+             display: inline-block;
+             width: 15px;
+             height: 15px;
+             background-color: var(--poke-dark-blue);
+             border-radius: 50%;
+             margin-right: 5px;
+             color: var(--poke-yellow);
+             font-size: 10px;
+             text-align: center;
+             line-height: 15px;
+        }
+
+        .card-price {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--poke-red);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            margin-top: auto;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--poke-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--poke-dark-blue);
+        }
+
+        /* --- CARRUSEL POPULARES (Simulado con scroll CSS) --- */
+        .popular-section {
+            padding: 4rem 0;
+        }
+
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1rem 0 2rem 0; /* Espacio para la sombra del hover */
+            scroll-behavior: smooth;
+            /* Ocultar barra de scroll estándar y personalizar */
+            scrollbar-width: thin;
+            scrollbar-color: var(--poke-red) var(--card-border);
+        }
+        
+        /* Personalización de scrollbar para Webkit (Chrome, Safari) */
+        .carousel-container::-webkit-scrollbar {
+            height: 10px;
+        }
+        .carousel-container::-webkit-scrollbar-track {
+             background: var(--card-border);
+             border-radius: 10px;
+        }
+        .carousel-container::-webkit-scrollbar-thumb {
+             background-color: var(--poke-red);
+             border-radius: 10px;
+             border: 2px solid var(--card-border);
+        }
+
+        .carousel-item {
+            min-width: 220px;
+            flex: 0 0 auto;
+        }
+
+        .status-message {
+            width: 100%;
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .status-message.error {
+            color: var(--poke-red);
+        }
+
+        .skeleton-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skeleton-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150px;
+            width: 150px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 1.2s infinite;
+        }
+
+        .skeleton {
+            background: #e5e7eb;
+            border-radius: 8px;
+        }
+
+        .skeleton-img {
+            width: 100%;
+            padding-top: 140%;
+        }
+
+        .skeleton-title {
+            height: 20px;
+            margin: 16px 0 12px;
+        }
+
+        .skeleton-line {
+            height: 14px;
+            margin-bottom: 10px;
+        }
+
+        .skeleton-pill {
+            height: 36px;
+            border-radius: 9999px;
+            margin-top: auto;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(300%); }
+        }
+
+        /* --- OFERTAS DE LA SEMANA --- */
+        .deals-section {
+            padding: 4rem 0;
+            background-color: #E3F2FD; /* Un azul muy claro para diferenciar la sección */
+            position: relative;
+        }
+        
+        /* Decoración de borde superior estilo "dientes" */
+        .deals-section::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background-color: #E3F2FD;
+            clip-path: polygon(0 100%, 100% 100%, 100% 0, 75% 100%, 50% 0, 25% 100%, 0 0);
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background-color: var(--poke-yellow);
+            color: var(--poke-dark-blue);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            z-index: 2;
+            border: 2px solid var(--poke-dark-blue);
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        /* --- FOOTER --- */
+        .main-footer {
+            background-color: var(--poke-dark-blue);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            color: var(--poke-yellow);
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #ccc;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--poke-yellow);
+        }
+        
+        .newsletter-form {
+            display: flex;
+        }
+        .newsletter-form input {
+            padding: 10px;
+            border-radius: 5px 0 0 5px;
+            border: none;
+            flex-grow: 1;
+        }
+        .newsletter-form button {
+            padding: 10px 15px;
+            background-color: var(--poke-red);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* --- MEDIA QUERIES (Responsive básico) --- */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-image img { max-width: 80%; }
+            
+            .header-content { flex-wrap: wrap; gap: 1rem; }
+            .search-bar { order: 3; margin: 0; max-width: 100%; }
+            .user-actions { gap: 1rem; }
+            .logo { font-size: 1.5rem; }
+        }

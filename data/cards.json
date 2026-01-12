@@ -1,0 +1,258 @@
+{
+    "data": [
+        {
+            "id": "rsv10pt5-173",
+            "name": "Reshiram ex",
+            "rarity": "Black White Rare"
+        },
+        {
+            "id": "rsv10pt5-172",
+            "name": "Victini",
+            "rarity": "Rare"
+        },
+        {
+            "id": "zsv10pt5-172",
+            "name": "Zekrom ex",
+            "rarity": "Black White Rare"
+        },
+        {
+            "id": "zsv10pt5-171",
+            "name": "Victini",
+            "rarity": "Rare"
+        },
+        {
+            "id": "rsv10pt5-171",
+            "name": "Hilda",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-170",
+            "name": "N's Plan",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-170",
+            "name": "Bouffalant ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-169",
+            "name": "Genesect ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-169",
+            "name": "Hydreigon ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-168",
+            "name": "Excadrill ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-168",
+            "name": "Jellicent ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-167",
+            "name": "Meloetta ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-167",
+            "name": "Keldeo ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-166",
+            "name": "Zekrom ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-166",
+            "name": "Reshiram ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-165",
+            "name": "Kyurem ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-165",
+            "name": "Whimsicott ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-164",
+            "name": "Serperior ex",
+            "rarity": "Special Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-164",
+            "name": "Hilda",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "zsv10pt5-163",
+            "name": "N's Plan",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "rsv10pt5-163",
+            "name": "Harlequin",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "zsv10pt5-162",
+            "name": "Fennel",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "rsv10pt5-162",
+            "name": "Bouffalant ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "zsv10pt5-161",
+            "name": "Genesect ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "rsv10pt5-161",
+            "name": "Hydreigon ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "zsv10pt5-160",
+            "name": "Excadrill ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "rsv10pt5-160",
+            "name": "Jellicent ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "zsv10pt5-159",
+            "name": "Meloetta ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "rsv10pt5-159",
+            "name": "Keldeo ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "zsv10pt5-158",
+            "name": "Zekrom ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "rsv10pt5-158",
+            "name": "Reshiram ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "zsv10pt5-157",
+            "name": "Kyurem ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "rsv10pt5-157",
+            "name": "Whimsicott ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "zsv10pt5-156",
+            "name": "Serperior ex",
+            "rarity": "Ultra Rare"
+        },
+        {
+            "id": "rsv10pt5-156",
+            "name": "Stoutland",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-155",
+            "name": "Braviary",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-155",
+            "name": "Herdier",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-154",
+            "name": "Rufflet",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-154",
+            "name": "Lillipup",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-153",
+            "name": "Cinccino",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-153",
+            "name": "Watchog",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-152",
+            "name": "Minccino",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-152",
+            "name": "Patrat",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-151",
+            "name": "Audino",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-151",
+            "name": "Druddigon",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-150",
+            "name": "Unfezant",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-150",
+            "name": "Durant",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-149",
+            "name": "Tranquill",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "rsv10pt5-149",
+            "name": "Ferrothorn",
+            "rarity": "Illustration Rare"
+        },
+        {
+            "id": "zsv10pt5-148",
+            "name": "Pidove",
+            "rarity": "Illustration Rare"
+        }
+    ],
+    "page": 1,
+    "pageSize": 50,
+    "count": 50,
+    "totalCount": 3630
+}
