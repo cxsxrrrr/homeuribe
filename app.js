@@ -1,4 +1,6 @@
-        const DATA_URL = 'data/cards.json';
+       //constantes no tocar
+       
+       const DATA_URL = 'data/cards.json';
         const IMAGE_ROOT = 'assets/cards/';
         const CARD_BACK_IMAGE = 'assets/back.png';
         const PLACEHOLDER_IMAGE = CARD_BACK_IMAGE;
@@ -33,6 +35,7 @@
             'Illustration Rare': '◆'
         };
 
+        // objeto que simula precios
         const rarityBasePrices = {
             Common: 1.5,
             Uncommon: 3,
@@ -43,7 +46,7 @@
             'Black White Rare': 42
         };
 
-        const formatCurrency = (value) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(value);
+        const formatCurrency = (value) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'USD' }).format(value);
 
         const toNumber = (value) => {
             const parsed = Number(value);
@@ -84,7 +87,7 @@
         const isMobileLayout = () => mobileMediaQuery.matches;
 
         const uniqueArray = (values = []) => Array.from(new Set(values.filter(Boolean)));
-
+        
         const computeDeterministicOffset = (text) => {
             if (!text) {
                 return 0;

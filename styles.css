@@ -20,6 +20,7 @@
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-dark);
+            overflow-x: hidden;
         }
 
         a {
@@ -43,6 +44,20 @@
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 0.65rem;
+        }
+
+        .section-title__icon {
+            width: 7rem;
+            height: auto;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        .section-title__icon--offset {
+            transform: translateY(5rem);
         }
 
         /* --- MODO OSCURO --- */
@@ -488,10 +503,16 @@
         }
 
         .cart-icon {
-            color: white;
-            font-size: 1.2rem;
             position: relative;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-icon__img {
+            width: 45px;
+            height: auto;
         }
 
         .cart-count {
@@ -851,6 +872,15 @@
                 height: 42px;
                 font-size: 1.2rem;
             }
+
+            .deals-grid {
+                justify-content: center;
+                justify-items: center;
+            }
+
+            .deals-grid .card-item {
+                margin: 0 auto;
+            }
         }
 
         @media (max-width: 540px) {
@@ -1173,6 +1203,10 @@
                 font-weight: 600;
             }
 
+            body:not(.dark-mode) .header-content.menu-open .user-actions a {
+                color: var(--poke-dark-blue) !important;
+            }
+
             .cart-icon {
                 align-self: flex-start;
             }
@@ -1184,4 +1218,13 @@
             }
 
             .logo { font-size: 1.5rem; }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .carousel-window {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
         }
