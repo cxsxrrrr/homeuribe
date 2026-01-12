@@ -64,13 +64,19 @@
 
         /* --- HEADER --- */
         .main-header {
-            background-color: var(--poke-red);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(29, 44, 94, 0.28));
             padding: 1rem 0;
             position: sticky;
             top: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
             z-index: 100;
-            box-shadow: 0 4px 12px rgba(238, 21, 21, 0.3);
-            border-bottom: 5px solid var(--poke-dark-blue);
+            backdrop-filter: blur(18px) saturate(150%);
+            -webkit-backdrop-filter: blur(18px) saturate(150%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 0px solid rgba(255, 255, 255, 0.28);
+            border-radius: 0 0 18px 18px;
         }
 
         .header-content {
@@ -81,13 +87,20 @@
 
         .logo {
             font-size: 1.8rem;
-            font-weight: 800;
-            color: white;
-            display: flex;
+            font-weight: 900;
+            display: inline-flex;
             align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: var(--poke-red);
+            color: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .logo span { color: var(--poke-yellow); }
+        .logo span {
+            color: var(--poke-yellow);
+        }
         
         /* Círculo decorativo tipo Pokéball en el logo */
         .logo::before {
@@ -95,44 +108,77 @@
             display: inline-block;
             width: 30px;
             height: 30px;
-            background: linear-gradient(to bottom, white 50%, var(--poke-dark-blue) 50%);
+            background: linear-gradient(to bottom, var(--poke-red) 50%, #ffffff 50%);
             border-radius: 50%;
             border: 3px solid var(--poke-dark-blue);
-            margin-right: 10px;
+            margin-right: 6px;
             position: relative;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
         }
 
 
 
         .search-bar {
             flex-grow: 1;
-            margin: 0 2rem;
+            margin: 0 0.5rem;
             position: relative;
             max-width: 500px;
         }
 
-        .search-bar input {
+        /* Uiverse-style search input */
+        .search-bar .input {
             width: 100%;
-            padding: 12px 20px;
-            border-radius: 30px;
-            border: 2px solid var(--poke-dark-blue);
+            border: none;
             outline: none;
+            border-radius: 15px;
+            padding: 1em;
+            background-color: #ccc;
+            box-shadow: inset 1px 3px 6px rgba(0,0,0,0.18);
+            transition: 300ms ease-in-out;
             font-family: inherit;
+            padding-right: 140px; /* room for pill GO button */
         }
 
-        .search-btn {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            background-color: var(--poke-yellow);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            color: var(--poke-dark-blue);
-            font-weight: bold;
+        .search-bar .input:focus {
+            background-color: #f4f4f4;
+            transform: scale(1.01);
+            box-shadow: 6px 6px 28px rgba(150,150,150,0.6),
+                        -6px -6px 28px rgba(255,255,255,0.7);
         }
+
+                .search-btn {
+                        position: absolute;
+                    right: -4px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background: transparent;
+                        border: none;
+                        padding: 1em;
+                        z-index: 2;
+                }
+
+                /* From Uiverse.io by adamgiebl */
+                .neu-button {
+                    background-color: #e0e0e0;
+                    border-radius: 10px;
+                    box-shadow: inset 4px 4px 10px #bcbcbc, inset -4px -4px 10px #ffffff;
+                    color: #4d4d4d;
+                    cursor: pointer;
+                    font-size: 17px;
+                    padding: 12px 12px;
+                    transition: all 0.2s ease-in-out;
+                    border: 2px solid rgb(206, 206, 206);
+                    font-weight: 700;
+                }
+
+                .neu-button:hover {
+                    box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+                }
+
+                .neu-button:focus {
+                    outline: none;
+                    box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
+                }
 
         .user-actions {
             display: flex;
@@ -167,7 +213,8 @@
                 linear-gradient(135deg, var(--poke-blue) 0%, var(--poke-dark-blue) 100%);
             background-size: 50px 50px, 100% 100%;
             color: white;
-            padding: 4rem 0;
+            padding: calc(4rem + 1.5rem) 0 4rem;
+            margin-top: -6rem;
             overflow: hidden;
         }
 
@@ -176,6 +223,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 2rem;
+            margin-top: 4rem;
         }
 
         .hero-text {
