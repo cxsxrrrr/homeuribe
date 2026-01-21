@@ -13,6 +13,7 @@
         const headerContent = document.querySelector('.header-content');
         const headerFlex = document.querySelector('.header-flex');
         const menuToggleButton = document.querySelector('.menu-toggle');
+        const heroSection = document.querySelector('.landing-hero');
         const carouselPrev = document.querySelector('.carousel-nav--prev');
         const carouselNext = document.querySelector('.carousel-nav--next');
         const SKELETONS_POPULAR = 6;
@@ -82,6 +83,28 @@
             const siguiente = themeToggleInput && themeToggleInput.checked ? 'dark' : 'light';
             aplicarTema(siguiente);
             localStorage.setItem(THEME_KEY, siguiente);
+            updateHeaderContrast();
+        };
+
+        const headerNeedsLightContrast = () => {
+            if (!headerContent) {
+                return false;
+            }
+            if (!heroSection) {
+                return true;
+            }
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const headerHeight = headerContent.offsetHeight || 0;
+            const scrollPosition = window.scrollY || window.pageYOffset || 0;
+            return scrollPosition + headerHeight >= heroBottom;
+        };
+
+        const updateHeaderContrast = () => {
+            if (!headerContent) {
+                return;
+            }
+            const shouldLight = headerNeedsLightContrast();
+            headerContent.classList.toggle('header-content--light', shouldLight);
         };
 
         const esDisenoMovil = () => mobileMediaQuery.matches;
@@ -649,6 +672,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = cargarTemaGuardado();
             aplicarTema(savedTheme);
+            updateHeaderContrast();
             cargarCartas();
             if (searchButton) {
                 searchButton.addEventListener('click', manejarBusqueda);
@@ -670,6 +694,12 @@
             if (carouselNext) {
                 carouselNext.addEventListener('click', () => moverCarrusel(1));
             }
+
+            const scheduleHeaderContrast = () => {
+                requestAnimationFrame(updateHeaderContrast);
+            };
+
+            window.addEventListener('scroll', scheduleHeaderContrast, { passive: true });
 
             let closeHeaderMenu = () => {};
             if (menuToggleButton && headerContent && headerFlex) {
@@ -702,7 +732,10 @@
             }
 
             const handleLayoutChange = () => {
-                requestAnimationFrame(actualizarTransformacionesCarrusel);
+                requestAnimationFrame(() => {
+                    actualizarTransformacionesCarrusel();
+                    updateHeaderContrast();
+                });
                 closeHeaderMenu();
             };
 

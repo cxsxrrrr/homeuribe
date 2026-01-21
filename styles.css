@@ -1,10 +1,10 @@
       /* paleta de colores no tocar */
         :root {
-            --poke-red: #EE1515;
+            --poke-red: #be1f1f;
             --poke-yellow: #FFCC00;
-            --poke-blue: #3B4CCA; 
-            --poke-dark-blue: #1D2C5E;
-            --bg-light: #F4F4F8;
+            --poke-blue: #14113a; 
+            --poke-dark-blue: #141f41;
+            --bg-light: #f4f4f8;
             --text-dark: #333333;
             --card-border: #E0E0E0;
         }
@@ -21,6 +21,7 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         a {
@@ -35,6 +36,17 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* suaviza el cambio entre temas */
+        .main-header,
+        .landing-hero,
+        .card-item,
+        .deals-section,
+        .main-footer,
+        .search-bar .input,
+        .neu-button {
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
         .section-title {
@@ -87,13 +99,13 @@
         }
 
         body.dark-mode .logo {
-            background: var(--poke-red);
-            color: #fff;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+            background: transparent;
+            color: inherit;
+            box-shadow: none;
         }
 
         body.dark-mode .logo::before {
-            border-color: #f8fafc;
+            display: none;
         }
 
         body.dark-mode .section-title {
@@ -134,11 +146,22 @@
                 linear-gradient(135deg, #0f172a 0%, #111827 100%);
         }
 
+        body.dark-mode .landing-hero::after {
+            background: linear-gradient(
+                to bottom,
+                rgba(15, 23, 42, 0) 0%,
+                rgba(15, 23, 42, 0.26) 28%,
+                rgba(15, 23, 42, 0.48) 52%,
+                rgba(15, 23, 42, 0.26) 76%,
+                #0b1021 100%
+            );
+        }
+
         body.dark-mode .card-item {
-            background: #0f172a;
-            border-color: #1f2937;
+            background: #1e2d50;
+            border-color: #233252;
             color: #e5e7eb;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.28);
         }
 
         body.dark-mode .card-info h3 {
@@ -172,6 +195,16 @@
             background-color: #0f172a;
         }
 
+        body.dark-mode .deals-section::after {
+            background: linear-gradient(
+                to bottom,
+                rgba(15, 23, 42, 0) 0%,
+                rgba(15, 23, 42, 0.18) 42%,
+                rgba(12, 18, 33, 0.44) 82%,
+                rgba(11, 16, 33, 0.78) 100%
+            );
+        }
+
         body.dark-mode .card-img-container::before {
             background-color: #101a37;
         }
@@ -181,6 +214,15 @@
         body.dark-mode .main-footer {
             background-color: #0b1021;
             color: #e5e7eb;
+        }
+
+        body.dark-mode .main-footer::before {
+            background: linear-gradient(
+                to top,
+                rgba(11, 16, 33, 1) 0%,
+                rgba(11, 16, 33, 0.6) 55%,
+                rgba(11, 16, 33, 0) 100%
+            );
         }
 
         body.dark-mode .footer-col ul li a { color: #cbd5e1; }
@@ -202,7 +244,22 @@
         }
 
         .btn-primary { background-color: var(--poke-yellow); color: var(--poke-dark-blue); }
-        .btn-secondary { background-color: var(--poke-blue); color: white; }
+        .btn-secondary {
+            background: linear-gradient(135deg, #223286 0%, #1b2fb5 100%);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 26px rgba(27, 47, 181, 0.35);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #5472ff 0%, #2339d0 100%);
+            box-shadow: 0 16px 30px rgba(27, 47, 181, 0.42);
+        }
+
+        .btn-secondary:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.4);
+            outline-offset: 3px;
+        }
 
         /* header */
         .main-header {
@@ -246,7 +303,7 @@
             border: none;
             padding: 0.45rem;
             cursor: pointer;
-            color: var(--poke-dark-blue);
+            color: #f8fafc;
             border-radius: 10px;
             transition: background 0.2s ease, color 0.2s ease;
         }
@@ -266,6 +323,22 @@
             background-color: currentColor;
             border-radius: 999px;
             transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .header-content.header-content--light .menu-toggle {
+            color: var(--poke-dark-blue);
+        }
+
+        .header-content.header-content--light .menu-toggle:hover {
+            background: rgba(17, 17, 17, 0.08);
+        }
+
+        body.dark-mode .header-content.header-content--light .menu-toggle {
+            color: #f8fafc;
+        }
+
+        body.dark-mode .header-content.header-content--light .menu-toggle:hover {
+            background: rgba(148, 163, 184, 0.18);
         }
 
                 /* modo oscuro */
@@ -401,34 +474,18 @@
                 }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            background: var(--poke-red);
-            color: #ffffff;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .logo span {
-            color: var(--poke-yellow);
+        .logo__img {
+            display: block;
+            height: 48px;
+            width: auto;
         }
-        
-        /* POKEBALL */
+
         .logo::before {
-            content: '';
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(to bottom, var(--poke-red) 50%, #ffffff 50%);
-            border-radius: 50%;
-            border: 3px solid var(--poke-dark-blue);
-            margin-right: 6px;
-            position: relative;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+            display: none;
         }
 
 
@@ -502,6 +559,16 @@
             margin-left: auto;
         }
 
+        .header-sell {
+            color: #ffffff;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .header-content.header-content--light .header-sell {
+            color: #111111;
+        }
+
         .cart-icon {
             position: relative;
             cursor: pointer;
@@ -527,17 +594,18 @@
             border-radius: 50%;
         }
 
-        /* patron de inicio */
+        /* hero con halo discreto */
         .landing-hero {
-      
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 20%, transparent 20%),
+            background-image:
+                radial-gradient(120% 120% at 26% 22%, rgba(129, 118, 83, 0.18) 0%, rgba(255, 204, 0, 0) 58%),
+                radial-gradient(120% 120% at 78% 18%, rgba(190, 31, 31, 0.14) 0%, rgba(190, 31, 31, 0) 60%),
                 linear-gradient(135deg, var(--poke-blue) 0%, var(--poke-dark-blue) 100%);
-            background-size: 50px 50px, 100% 100%;
+            background-repeat: no-repeat;
             color: white;
             padding: calc(4rem + 1.5rem) 0 4rem;
             margin-top: -6rem;
             overflow: hidden;
+            position: relative;
         }
 
         .hero-content {
@@ -546,6 +614,8 @@
             justify-content: space-between;
             gap: 2rem;
             margin-top: 4rem;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-text {
@@ -594,6 +664,25 @@
             transform: rotate(-10deg);
             z-index: 1;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        }
+
+        .landing-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            pointer-events: none;
+            z-index: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(20, 17, 58, 0) 0%,
+                rgba(20, 17, 58, 0.18) 28%,
+                rgba(20, 17, 58, 0.32) 52%,
+                rgba(20, 17, 58, 0.18) 76%,
+                var(--bg-light) 100%
+            );
         }
 
         /* estilo de las cartas en comun */
@@ -1037,6 +1126,28 @@
 
             position: relative;
         }
+
+        .deals-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .deals-section::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgb(227, 242, 253) 0%,
+                rgba(227, 242, 253, 0.342) 42%,
+                rgba(36, 48, 89, 0.38) 82%,
+                rgb(17, 25, 53) 100%
+            );
+        }
         
         /* deciracion de zigzag arriba */
         .deals-section::before {
@@ -1083,6 +1194,30 @@
             background-color: var(--poke-dark-blue);
             color: white;
             padding: 4rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            height: 220px;
+            pointer-events: none;
+            background: linear-gradient(
+                to top,
+                rgba(20, 31, 65, 1) 0%,
+                rgba(20, 31, 65, 0.55) 55%,
+                rgba(20, 31, 65, 0) 100%
+            );
+            z-index: 0;
+        }
+
+        .main-footer > * {
+            position: relative;
+            z-index: 1;
         }
 
         .footer-grid {
