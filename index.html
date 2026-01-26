@@ -103,10 +103,17 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                    <img src="assets/cards/charizarday.png" alt="Charizard arte diurno Carta Destacada">
+                    <div class="hero-tilt-wrapper">
+                        <div class="hero-card">
+                            <img src="assets/cards/charizarday.png" alt="Charizard arte diurno Carta Destacada" class="hero-card__face hero-card__face--front">
+                            <img src="assets/back.png" alt="" aria-hidden="true" class="hero-card__face hero-card__face--back">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <audio id="hero-roar-audio" src="assets/sounds/charizard.mp3" preload="auto"></audio>
 
         <section class="popular-section container">
             <h2 class="section-title"><img src="assets/charizard-seeklogo.svg" alt="Icono de Charizard" class="section-title__icon"><span>Populares esta semana</span></h2>

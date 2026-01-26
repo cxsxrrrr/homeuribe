@@ -41,7 +41,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-
         /* suaviza el cambio entre temas */
         .main-header,
         .landing-hero,
@@ -648,8 +647,64 @@
             display: flex;
             justify-content: center;
             position: relative;
+            perspective: 1200px;
         }
-        
+
+        .hero-tilt-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: min(100%, 360px);
+        }
+
+        .hero-tilt-wrapper:focus-visible {
+            outline: 2px solid var(--poke-yellow);
+            outline-offset: 6px;
+        }
+/* Contenedor Principal: SIN filter para no romper el 3D */
+.hero-card {
+    position: relative;
+    display: grid;
+    max-width: 360px;
+    transform: rotate(-8deg);
+    
+    /* Propiedad CRUCIAL para que el navegador entienda el espacio 3D */
+    transform-style: preserve-3d;
+    
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+    transform-origin: center;
+}
+
+/* Estilos comunes de las caras: Sombra movida aquí */
+.hero-card__face {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: auto;
+    display: block;
+    
+    /* Oculta la parte trasera de la imagen */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    
+    /* La sombra se aplica aquí para no afectar al contenedor 3D */
+    box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+    border-radius: 14px; /* Ajuste visual para que la sombra siga la forma */
+}
+
+/* Cara Frontal (Charizard) */
+.hero-card__face--front {
+    /* La empujamos un píxel al frente para evitar parpadeos */
+    transform: translateZ(1px);
+    z-index: 2;
+}
+
+/* Cara Trasera (Dorso) */
+.hero-card__face--back {
+    /* Girada 180 grados y empujada un píxel hacia "su" frente */
+    transform: rotateY(180deg) translateZ(1px);
+    z-index: 1;
+}
         /* charizard card */
         .hero-image::before {
             content: '';
@@ -660,15 +715,6 @@
             border-radius: 50%;
             z-index: 0;
         }
-
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            transform: rotate(-10deg);
-            z-index: 1;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
-        }
-
 
         /* estilo de las cartas en comun */
         .card-item {
@@ -1232,7 +1278,7 @@
                 text-align: center;
             }
             .hero-text h1 { font-size: 2.5rem; }
-            .hero-image img { max-width: 80%; }
+            .hero-card { width: min(80%, 320px); }
 
             .header-content {
                 gap: 0.75rem;

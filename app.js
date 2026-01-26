@@ -15,7 +15,12 @@
         const headerFlex = document.querySelector('.header-flex');
         const menuToggleButton = document.querySelector('.menu-toggle');
         const heroSection = document.querySelector('.landing-hero');
-        const heroImage = document.querySelector('.hero-image img');
+        const heroImageContainer = document.querySelector('.hero-image');
+        const heroTiltWrapper = heroImageContainer ? heroImageContainer.querySelector('.hero-tilt-wrapper') : null;
+        const heroCard = heroTiltWrapper ? heroTiltWrapper.querySelector('.hero-card') : null;
+        const heroCardFront = heroCard ? heroCard.querySelector('.hero-card__face--front') : null;
+        const heroCardBack = heroCard ? heroCard.querySelector('.hero-card__face--back') : null;
+        const heroRoarAudio = document.getElementById('hero-roar-audio');
         const carouselPrev = document.querySelector('.carousel-nav--prev');
         const carouselNext = document.querySelector('.carousel-nav--next');
         const cartPanel = document.querySelector('[data-cart-panel]');
@@ -75,12 +80,32 @@
         let rotationTimer = null;
         let currentSourceCards = [];
         let cartItems = [];
+        let heroTiltAnimationFrame = null;
+        let heroSpinAnimationFrame = null;
+        let heroRoarAnimationFrame = null;
+        let heroSpinActive = false;
+        let heroRoarActive = false;
+        const heroTiltState = { x: 0, y: 0 };
+        const heroSpinState = { rotationY: 0 };
+        const heroRoarState = { translateX: 0, translateY: 0, scale: 1 };
         const mobileMediaQuery = window.matchMedia(MOBILE_QUERY);
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
         const THEME_KEY = 'pokemart-theme';
         const HERO_LIGHT_IMAGE = 'assets/cards/charizarday.png';
         const HERO_LIGHT_ALT = 'Charizard arte diurno Carta Destacada';
         const HERO_DARK_IMAGE = 'assets/Charizard_ex.png';
         const HERO_DARK_ALT = 'Charizard EX Carta Destacada';
+        const HERO_BACK_IMAGE = 'assets/back.png';
+        const HERO_BASE_Z_ROTATION = -8;
+        const HERO_MAX_TILT = 6;
+        const HERO_MAX_TRANSLATE = 10;
+        const HERO_SPIN_DURATION_MS = 550;
+        const HERO_SPIN_HALF_FRACTION = 0.55;
+        const HERO_SPIN_HOLD_FRACTION = 0.2;
+        const HERO_ROAR_DURATION_MS = 650;
+        const HERO_ROAR_MAX_TRANSLATE = 10;
+        const HERO_ROAR_MAX_SCALE = 0.08;
+        const HERO_ROAR_WOBBLES = 4.5;
 
         const safeParseCart = (value) => {
             if (!value) {
@@ -344,8 +369,262 @@
             headerContent.classList.toggle('header-content--light', shouldLight);
         };
 
+        const normalizeRotation = (value) => {
+            const result = value % 360;
+            return result < 0 ? result + 360 : result;
+        };
+
+        const playHeroRoarSound = () => {
+            if (!heroRoarAudio) {
+                return;
+            }
+            try {
+                heroRoarAudio.currentTime = 0;
+                const playPromise = heroRoarAudio.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {});
+                }
+            } catch (error) {
+                console.warn('No se pudo reproducir el rugido', error);
+            }
+        };
+
+        const updateHeroFacesForSpin = (rotationY = heroSpinState.rotationY) => {
+            if (!heroCardFront || !heroCardBack) {
+                return;
+            }
+        };
+
+        const renderHeroTransformNow = () => {
+            if (!heroCard) {
+                heroTiltAnimationFrame = null;
+                return;
+            }
+            const { x: tiltX, y: tiltY } = heroTiltState;
+            const tiltTranslateX = HERO_MAX_TILT ? -(tiltX / HERO_MAX_TILT) * HERO_MAX_TRANSLATE : 0;
+            const tiltTranslateY = HERO_MAX_TILT ? (tiltY / HERO_MAX_TILT) * HERO_MAX_TRANSLATE : 0;
+            const translateX = tiltTranslateX + heroRoarState.translateX;
+            const translateY = tiltTranslateY + heroRoarState.translateY;
+            const totalRotateY = heroSpinState.rotationY + tiltX;
+            const scale = heroRoarState.scale;
+            heroCard.style.transform = `translateX(${translateX.toFixed(2)}px) translateY(${translateY.toFixed(2)}px) rotateX(${tiltY.toFixed(2)}deg) rotateY(${totalRotateY.toFixed(2)}deg) rotate(${HERO_BASE_Z_ROTATION}deg) scale(${scale.toFixed(3)})`;
+            updateHeroFacesForSpin();
+            heroTiltAnimationFrame = null;
+        };
+
+        const scheduleHeroRender = () => {
+            if (!heroCard) {
+                return;
+            }
+            if (heroTiltAnimationFrame) {
+                cancelAnimationFrame(heroTiltAnimationFrame);
+            }
+            heroTiltAnimationFrame = requestAnimationFrame(renderHeroTransformNow);
+        };
+
+        const setHeroTilt = (tiltX, tiltY) => {
+            heroTiltState.x = clamp(tiltX, -HERO_MAX_TILT, HERO_MAX_TILT);
+            heroTiltState.y = clamp(tiltY, -HERO_MAX_TILT, HERO_MAX_TILT);
+            scheduleHeroRender();
+        };
+
+        const resetHeroImageTransform = (useAnimation = true, preserveDynamicEffects = true) => {
+            if (!heroCard) {
+                return;
+            }
+            heroTiltState.x = 0;
+            heroTiltState.y = 0;
+            if (heroSpinAnimationFrame) {
+                cancelAnimationFrame(heroSpinAnimationFrame);
+                heroSpinAnimationFrame = null;
+            }
+            heroSpinState.rotationY = 0;
+            heroSpinActive = false;
+            updateHeroFacesForSpin(0);
+            if (!preserveDynamicEffects) {
+                heroRoarState.translateX = 0;
+                heroRoarState.translateY = 0;
+                heroRoarState.scale = 1;
+                if (heroRoarAnimationFrame) {
+                    cancelAnimationFrame(heroRoarAnimationFrame);
+                    heroRoarAnimationFrame = null;
+                }
+                heroRoarActive = false;
+            }
+            if (heroTiltAnimationFrame) {
+                cancelAnimationFrame(heroTiltAnimationFrame);
+                heroTiltAnimationFrame = null;
+            }
+            if (useAnimation) {
+                scheduleHeroRender();
+            } else {
+                renderHeroTransformNow();
+            }
+        };
+
+        const startHeroRoar = () => {
+            const startTimestamp = performance.now();
+            const duration = HERO_ROAR_DURATION_MS;
+            if (heroRoarAnimationFrame) {
+                cancelAnimationFrame(heroRoarAnimationFrame);
+                heroRoarAnimationFrame = null;
+            }
+            heroRoarState.translateX = 0;
+            heroRoarState.translateY = 0;
+            heroRoarState.scale = 1;
+            heroRoarActive = true;
+            playHeroRoarSound();
+
+            const animate = (timestamp) => {
+                const elapsed = timestamp - startTimestamp;
+                const progress = clamp(elapsed / duration, 0, 1);
+                const intensity = 1 - progress;
+                const wobble = Math.sin(progress * Math.PI * HERO_ROAR_WOBBLES);
+                heroRoarState.translateX = wobble * HERO_ROAR_MAX_TRANSLATE * intensity;
+                heroRoarState.translateY = 0;
+                const growth = Math.sin(progress * Math.PI);
+                heroRoarState.scale = 1 + HERO_ROAR_MAX_SCALE * growth;
+                scheduleHeroRender();
+                if (progress < 1) {
+                    heroRoarAnimationFrame = requestAnimationFrame(animate);
+                } else {
+                    heroRoarState.translateX = 0;
+                    heroRoarState.translateY = 0;
+                    heroRoarState.scale = 1;
+                    heroRoarActive = false;
+                    heroRoarAnimationFrame = null;
+                    scheduleHeroRender();
+                }
+            };
+
+            heroRoarAnimationFrame = requestAnimationFrame(animate);
+        };
+
+        const triggerHeroRoar = () => {
+            if (!heroCard || prefersReducedMotion.matches) {
+                return;
+            }
+            if (heroSpinActive || heroRoarActive) {
+                return;
+            }
+            const startTimestamp = performance.now();
+            const duration = HERO_SPIN_DURATION_MS;
+            if (heroSpinAnimationFrame) {
+                cancelAnimationFrame(heroSpinAnimationFrame);
+                heroSpinAnimationFrame = null;
+            }
+
+            heroSpinState.rotationY = 0;
+            heroSpinActive = true;
+            heroRoarState.translateX = 0;
+            heroRoarState.translateY = 0;
+            heroRoarState.scale = 1;
+            setHeroTilt(0, 0);
+
+            const holdStart = clamp(HERO_SPIN_HALF_FRACTION, 0, 1);
+            const holdEnd = clamp(holdStart + HERO_SPIN_HOLD_FRACTION, holdStart, 1);
+            const remainingSpan = Math.max(1 - holdEnd, 0.0001);
+
+            const easeOut = (value) => 1 - Math.pow(1 - value, 2);
+            const easeIn = (value) => value * value;
+
+            const animateSpin = (timestamp) => {
+                const elapsed = timestamp - startTimestamp;
+                const progress = clamp(elapsed / duration, 0, 1);
+                let rotation;
+                if (progress < holdStart) {
+                    const localProgress = progress / holdStart;
+                    rotation = easeOut(localProgress) * 180;
+                } else if (progress < holdEnd) {
+                    rotation = 180;
+                } else {
+                    const localProgress = (progress - holdEnd) / remainingSpan;
+                    rotation = 180 + easeIn(localProgress) * 180;
+                }
+                heroSpinState.rotationY = rotation;
+                scheduleHeroRender();
+                if (progress < 1) {
+                    heroSpinAnimationFrame = requestAnimationFrame(animateSpin);
+                } else {
+                    heroSpinState.rotationY = 0;
+                    heroSpinAnimationFrame = null;
+                    heroSpinActive = false;
+                    scheduleHeroRender();
+                    startHeroRoar();
+                }
+            };
+
+            heroSpinAnimationFrame = requestAnimationFrame(animateSpin);
+        };
+
+        const setupHeroTilt = () => {
+            if (!heroImageContainer || !heroTiltWrapper || !heroCard || !heroCardFront) {
+                return;
+            }
+            if (heroTiltWrapper.dataset.tiltReady === 'true') {
+                return;
+            }
+            heroTiltWrapper.dataset.tiltReady = 'true';
+            heroTiltWrapper.setAttribute('role', 'button');
+            heroTiltWrapper.setAttribute('tabindex', '0');
+            heroTiltWrapper.setAttribute('aria-label', 'Carta destacada interactiva');
+            if (heroCardBack) {
+                heroCardBack.setAttribute('src', HERO_BACK_IMAGE);
+                heroCardBack.setAttribute('alt', '');
+                heroCardBack.setAttribute('aria-hidden', 'true');
+                heroCardBack.setAttribute('draggable', 'false');
+            }
+            heroCardFront.setAttribute('draggable', 'false');
+            updateHeroFacesForSpin(0);
+            resetHeroImageTransform(false, false);
+
+            const handlePointerMove = (event) => {
+                if (prefersReducedMotion.matches) {
+                    return;
+                }
+                if (event.pointerType === 'touch') {
+                    return;
+                }
+                if (heroSpinActive || heroRoarActive) {
+                    return;
+                }
+                const rect = heroTiltWrapper.getBoundingClientRect();
+                if (!rect.width || !rect.height) {
+                    return;
+                }
+                const relativeX = clamp(((event.clientX - rect.left) / rect.width) - 0.5, -0.5, 0.5);
+                const relativeY = clamp(((event.clientY - rect.top) / rect.height) - 0.5, -0.5, 0.5);
+                const tiltX = relativeX * HERO_MAX_TILT * 2;
+                const tiltY = -relativeY * HERO_MAX_TILT * 2;
+                setHeroTilt(tiltX, tiltY);
+            };
+
+            const handlePointerExit = () => {
+                if (heroSpinActive || heroRoarActive) {
+                    return;
+                }
+                resetHeroImageTransform();
+            };
+
+            heroTiltWrapper.addEventListener('pointermove', handlePointerMove);
+            heroTiltWrapper.addEventListener('pointerenter', handlePointerMove);
+            heroTiltWrapper.addEventListener('pointerleave', handlePointerExit);
+            heroTiltWrapper.addEventListener('pointercancel', handlePointerExit);
+            heroTiltWrapper.addEventListener('pointerup', handlePointerExit);
+            heroTiltWrapper.addEventListener('pointerout', handlePointerExit);
+            heroTiltWrapper.addEventListener('click', () => {
+                triggerHeroRoar();
+            });
+            heroTiltWrapper.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    triggerHeroRoar();
+                }
+            });
+        };
+
         const updateHeroImageSource = (theme = 'light') => {
-            if (!heroImage) {
+            if (!heroCardFront) {
                 return;
             }
             const normalizedTheme = theme === 'dark' ? 'dark' : 'light';
@@ -353,18 +632,22 @@
             const nextSrc = isDarkTheme ? HERO_DARK_IMAGE : HERO_LIGHT_IMAGE;
             const nextAlt = isDarkTheme ? HERO_DARK_ALT : HERO_LIGHT_ALT;
 
-            if (heroImage.getAttribute('src') !== nextSrc) {
-                heroImage.setAttribute('src', nextSrc);
+            if (heroCardFront.getAttribute('src') !== nextSrc) {
+                heroCardFront.setAttribute('src', nextSrc);
             }
-            if (heroImage.getAttribute('alt') !== nextAlt) {
-                heroImage.setAttribute('alt', nextAlt);
+            if (heroCardFront.getAttribute('alt') !== nextAlt) {
+                heroCardFront.setAttribute('alt', nextAlt);
             }
-            heroImage.dataset.heroTheme = normalizedTheme;
+            heroCardFront.dataset.heroTheme = normalizedTheme;
+            updateHeroFacesForSpin(0);
+            resetHeroImageTransform(false, false);
         };
 
         const esDisenoMovil = () => mobileMediaQuery.matches;
 
         const listaSinDuplicados = (valores = []) =>  Array.from(new Set(valores.filter(Boolean)));
+
+        const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
         const calcularDesfaseDeterminista = (texto) =>{
             if(!texto){
@@ -941,6 +1224,7 @@
             loadCartFromStorage();
             updateCartUI();
             updateHeaderContrast();
+            setupHeroTilt();
             cargarCartas();
             if (searchButton) {
                 searchButton.addEventListener('click', manejarBusqueda);
@@ -1069,5 +1353,17 @@
                 mobileMediaQuery.addEventListener('change', handleLayoutChange);
             } else if (typeof mobileMediaQuery.addListener === 'function') {
                 mobileMediaQuery.addListener(handleLayoutChange);
+            }
+
+            const handleMotionPreferenceChange = (event) => {
+                if (event.matches) {
+                    resetHeroImageTransform(false, false);
+                }
+            };
+
+            if (typeof prefersReducedMotion.addEventListener === 'function') {
+                prefersReducedMotion.addEventListener('change', handleMotionPreferenceChange);
+            } else if (typeof prefersReducedMotion.addListener === 'function') {
+                prefersReducedMotion.addListener(handleMotionPreferenceChange);
             }
         });
