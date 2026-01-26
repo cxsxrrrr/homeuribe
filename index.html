@@ -27,10 +27,10 @@
                 </div>
                 <div class="user-actions">
                     <a href="#" class="header-sell">Vender Cartas</a>
-                    <div class="cart-icon">
+                    <button class="cart-icon" type="button" aria-label="Ver carrito" data-cart-toggle>
                         <img src="assets/cart.png" alt="Carrito" class="cart-icon__img">
                         <span class="cart-count">0</span>
-                    </div>
+                    </button>
                     <div class="toggle-cont" aria-label="Cambiar tema">
                         <input class="toggle-input" id="theme-toggle" name="theme-toggle" type="checkbox" />
                         <label class="toggle-label" for="theme-toggle">
@@ -69,6 +69,27 @@
             </div>
         </div>
     </header>
+
+    <div class="cart-panel" data-cart-panel aria-hidden="true">
+        <div class="cart-panel__backdrop" data-cart-dismiss></div>
+        <aside class="cart-panel__body" aria-labelledby="cart-panel-title" role="dialog">
+            <header class="cart-panel__header">
+                <h2 id="cart-panel-title">Tu carrito</h2>
+                <button class="cart-panel__close" type="button" data-cart-dismiss aria-label="Cerrar carrito">×</button>
+            </header>
+            <div class="cart-panel__content">
+                <ul class="cart-panel__list" data-cart-list></ul>
+                <div class="cart-panel__empty" data-cart-empty>Tu carrito está vacío por ahora.</div>
+            </div>
+            <footer class="cart-panel__footer">
+                <div class="cart-panel__summary">
+                    <span>Total estimado</span>
+                    <strong data-cart-total>$0.00</strong>
+                </div>
+                <button class="cart-panel__checkout" type="button">Proceder al pago</button>
+            </footer>
+        </aside>
+    </div>
 
     <main>
         <section class="landing-hero">
